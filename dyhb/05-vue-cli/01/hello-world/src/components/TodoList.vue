@@ -1,6 +1,10 @@
 <template>
   <ul>
-    <TodoItem v-for="(todo, index) in todos" :todo="todo" :key="index" />
+    <TodoItem v-for="(todo, index) in todos" 
+          :todo="todo" 
+          :key="index" 
+          @toggle-todo="$emit('toggle-todo2',$event)"
+          />
   </ul>
 </template>
 
@@ -22,6 +26,8 @@ ul li {
   display: flex;
   align-items: center
 }
+
+
 
 
 </style>
