@@ -1,9 +1,6 @@
 <template>
   <div id="app">
-           
-
     <ul id="nav" v-if="$route.meta.showNavBar">
-      
       <li>
         <router-link to="/">推荐音乐</router-link>
       </li>
@@ -14,45 +11,53 @@
         <router-link to="/search">搜索</router-link>
       </li>
     </ul>
-    <router-view 
-            @change-current-song="changeCurrentSong"
-            @change-current-play-list="changeCurrentPlayList"
-            :currentSongId="currentSong ? currentSong.id : null"
-            :playing="playing"
-            />
+    <section class="routes">
+      <transition
+        name="custom-classes-transition"
+        enter-active-class="animate__animated animate__slideInRight"
+        leave-active-class="animate__animated animate__slideOutLeft"
+      >
+        <router-view
+          @change-current-song="changeCurrentSong"
+          @change-current-play-list="changeCurrentPlayList"
+          :currentSongId="currentSong ? currentSong.id : null"
+          :playing="playing"
+          style="position: absolute; top:0; left:0; width:100%;height:100%; overflow-y: auto;"
+
+        />
+      </transition>
+    </section>
     <!-- pause() 方法停止（暂停）当前播放的音频或视频。 -->
-    <audio 
-    ref="audio"
-    :src="currentSongUrl"
-     controls 
-     pause
-     autoplay 
-     @playing="playing = true"
-     @pause="playing = false"
-     @timeupdate="timeupdate"
-     @durationchange="durationchange"
-     ></audio>
-     <PlayBar 
-     v-if="currentSong"
-     :currentSong="currentSong"         
-     @toggle-playing-state="togglePlayingState"
-     :playing="playing"
-     :currentTime="currentTime"
-     :duration="duration"
-     :currentPlayList="currentPlayList"
-     @change-current-song="changeCurrentSong"
-      
-     ></PlayBar>
-      
+    <audio
+      ref="audio"
+      :src="currentSongUrl"
+      controls
+      pause
+      autoplay
+      @playing="playing = true"
+      @pause="playing = false"
+      @timeupdate="timeupdate"
+      @durationchange="durationchange"
+    ></audio>
+    <Play
+      v-if="currentSong"
+      :currentSong="currentSong"
+      @toggle-playing-state="togglePlayingState"
+      :playing="playing"
+      :currentTime="currentTime"
+      :duration="duration"
+      :currentPlayList="currentPlayList"
+      @change-current-song="changeCurrentSong"
+    ></Play>
   </div>
 </template>
 
 <script>
-import PlayBar from "@/components/PlayBar.vue";
+import Play from "@/components/Play.vue";
 
 export default {
   components: {
-    PlayBar,
+    Play,
   },
   data: function () {
     return {
@@ -73,14 +78,13 @@ export default {
     },
   },
   methods: {
-    
     changeCurrentSong: function (song) {
       // console.log(song);
       this.currentSong = song;
     },
-    changeCurrentPlayList: function (list){
+    changeCurrentPlayList: function (list) {
       console.log(list);
-      this.currentPlayList = list
+      this.currentPlayList = list;
     },
     togglePlayingState: function () {
       // console.log(this.$refs);
@@ -92,23 +96,26 @@ export default {
         this.$refs.audio.play();
       }
     },
-    timeupdate: function(event) {
+    timeupdate: function (event) {
       // console.log(event.target.currentTime);
       //获取音频播放的当前位置
       this.currentTime = event.target.currentTime;
     },
-    durationchange: function(event) {
+    durationchange: function (event) {
       //duration 属性返回当前视频的长度，以秒计。
       // console.log(event.target.duration);
       this.duration = event.target.duration;
-    }
-
+    },
   },
 };
 </script>
 
 
 <style lang="less">
+.animate__animated {
+  animation-duration: 0.3s;
+}
+
 #app {
   font-family: Avenir, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -117,6 +124,8 @@ export default {
   margin: 0;
   padding: 0;
 }
+
+
 
 audio {
   height: 40px;
@@ -148,5 +157,13 @@ audio {
       }
     }
   }
+}
+
+.routes{
+  position: relative;
+  top: 0;
+  left: 0;
+  height: calc(100vh - 42px);
+  overflow: hidden;
 }
 </style>

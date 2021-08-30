@@ -1,6 +1,10 @@
 <template>
-  <footer class="playbar" :class="{ playing: playing }">
-    <section class="bar">
+ 
+    <section 
+    class="playbar" 
+    :class="{ playing: playing }"
+    @click="$emit('toggle-show-play-page', true)"
+    >
       <img
         class="song-picture"
         :src="`${
@@ -29,37 +33,17 @@
         />
       </div>
 
-      <button @click="showPlayList = true">列表</button>
-      <slot></slot>
+      <button @click="$emit('toggle-show-play-list',true)">列表</button>
+      
     </section>
-    <section class="play-list" v-if="showPlayList">
-      <div class="mask" @click="showPlayList = false"></div>
-      <div class="swoper">
-        <div class="card">
-          <ul class="list">
-            <SongListItem
-              v-for="item in currentPlayList"
-              :key="item.id"
-              :item="item"             
-              :currentSongId="currentSong.id"
-              :playing="playing"
-              @change-current-song="$emit('change-current-song',$event)"
-              
-            ></SongListItem>
-          </ul>
-        </div>
-      </div>
-    </section>
-  </footer>
+    
 </template>
 
 <script>
-import SongListItem from "@/components/SongListItem.vue";
+
 
 export default {
-  components: {
-    SongListItem,
-  },
+  
   props: {
     currentSong: Object,
     playing: Boolean,
@@ -67,11 +51,7 @@ export default {
     currentTime: Number,
     currentPlayList: Array,
   },
-  data: function () {
-    return {
-      showPlayList: false,
-    };
-  },
+ 
   mounted: function () {
     //检查是否有canvas
     // console.log(this.$refs.canvas);
@@ -117,6 +97,7 @@ export default {
 </script>
 
 <style lang="less" scoped>
+
 @keyframes rotate {
   from {
     transform: rotate(0deg);
@@ -126,7 +107,7 @@ export default {
   }
 }
 .playbar {
-  .bar {
+  
     width: 100%;
     height: 50px;
     background: #fff;
@@ -187,38 +168,7 @@ export default {
       }
     }
   }
-  .play-list {
-    width: 100%;
-    height: 100%;
-    // background: red;
-    position: fixed;
-    left: 0;
-    top: 0;
-    .mask {
-      width: 100%;
-      height: 100%;
-      background: rgba(0, 0, 0, 0.5);
-      position: absolute;
-    }
-    .swoper {
-      width: 100%;
-      height: 60vh;
-      // background: #000;
-      position: absolute;
-      bottom: 10px;
-      padding: 0 10px;
+ 
+ 
 
-      .card {
-        background: white;
-        height: 100%;
-        border-radius: 15px;
-        padding: 15px 0;
-        ul.list {
-          height: 100%;
-          overflow: auto;
-        }
-      }
-    }
-  }
-}
 </style>
