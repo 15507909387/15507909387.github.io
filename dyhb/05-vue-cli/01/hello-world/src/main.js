@@ -1,5 +1,5 @@
 import Vue from "vue";
-import App from "./AppTest.vue";
+import App from "./AppEdge.vue";
 
 import upperFirst from "lodash/upperFirst";
 import camelCase from "lodash/camelCase";

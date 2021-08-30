@@ -27,16 +27,16 @@ export default {
   data: function() {
     return {
       todos: [
-        { text: "学习 JavaScript", completed: true },
-        { text: "学习 Vue", completed: false },
-        { text: "整个牛项目", completed: true },
+        { text: "学习 JavaScript", completed: true, id: 1 },
+        { text: "学习 Vue", completed: false, id: 2 },
+        { text: "整个牛项目", completed: true, id: 3 },
       ],
     };
   },
   methods: {
     addTodo: function(text) {
       this.todos.push({
-        text,completed:false
+        text,completed:false,id:Date.now()
       })
     }
   }

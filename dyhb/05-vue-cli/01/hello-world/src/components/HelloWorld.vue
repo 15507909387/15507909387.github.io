@@ -1,12 +1,17 @@
 <template>
   <div class="hello">
-    <h1>{{ msg }}</h1>
+    <h6>MyTest插入{{name}}:{{ msg }}</h6>
   </div>
 </template>
 
 <script>
 export default {
-  name: "HelloWorld",
+  data:function(){
+    return {
+      name: "HelloWorld",
+    }
+  },
+  
   // props: {
   //   msg: String,
   // },
