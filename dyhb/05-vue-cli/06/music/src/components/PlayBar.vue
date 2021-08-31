@@ -3,16 +3,17 @@
     <section 
     class="playbar" 
     :class="{ playing: playing }"
-    @click="$emit('toggle-show-play-page', true)"
+    
     >
       <img
+       @click="$emit('toggle-show-play-page', true)"
         class="song-picture"
         :src="`${
           currentSong.song ? currentSong.picUrl : currentSong.al.picUrl
         }?imageView=1&type=webp&thumbnail=80x0`"
         alt=""
       />
-      <h3>
+      <h3 @click="$emit('toggle-show-play-page', true)">
         {{ currentSong.name }}
         <span>
           -
@@ -23,6 +24,7 @@
           }}</span
         >
       </h3>
+      
       <div class="progress" @click="$emit('toggle-playing-state')">
         <canvas width="40px" height="40px" ref="canvas"></canvas>
         <img

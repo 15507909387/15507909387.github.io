@@ -5,17 +5,17 @@
       enter-active-class="animate__animated animate__slideInUp"
       leave-active-class="animate__animated animate__slideOutDown"
     >
-    <PlayBar
-      v-show="!showPlayPage"
-      :currentSong="currentSong"
-      :playing="playing"
-      :duration="duration"
-      :currentTime="currentTime"
-      :currentPlayList="currentPlayList"
-      @toggle-playing-state="$emit('toggle-playing-state')"
-      @toggle-show-play-list="showPlayList = $event"
-      @toggle-show-play-page="showPlayPage = $event"
-    />
+      <PlayBar
+        v-show="!showPlayPage"
+        :currentSong="currentSong"
+        :playing="playing"
+        :duration="duration"
+        :currentTime="currentTime"
+        :currentPlayList="currentPlayList"
+        @toggle-playing-state="$emit('toggle-playing-state')"
+        @toggle-show-play-list="showPlayList = $event"
+        @toggle-show-play-page="showPlayPage = $event"
+      />
     </transition>
 
     <PlayList
@@ -24,20 +24,21 @@
       :playing="playing"
       :currentPlayList="currentPlayList"
       @toggle-show-play-list="showPlayList = $event"
-      
     />
-     <transition
+    <transition
       name="custom-classes-transition"
       enter-active-class="animate__animated animate__fadeIn"
       leave-active-class="animate__animated animate__fadeOut"
     >
-    <PlayPage 
-      v-if="showPlayPage"
-      @toggle-show-play-page="showPlayPage = $event"
-
-    />
+      <PlayPage
+        v-if="showPlayPage"
+        @toggle-show-play-page="showPlayPage = $event"
+        :currentSong="currentSong"
+        :currentTime="currentTime"
+        :duration="duration"
+        :playing="playing"
+      />
     </transition>
-
   </footer>
 </template>
 
@@ -66,8 +67,8 @@ export default {
     };
   },
 };
+
 </script>
 
 <style lang="less" scoped>
-
 </style>
