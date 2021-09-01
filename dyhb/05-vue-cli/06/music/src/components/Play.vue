@@ -24,6 +24,7 @@
       :playing="playing"
       :currentPlayList="currentPlayList"
       @toggle-show-play-list="showPlayList = $event"
+      @change-current-song="$emit(`change-current-song`,$event),$emit(`change-current-play-list`,$event)"
     />
     <transition
       name="custom-classes-transition"
@@ -37,6 +38,10 @@
         :currentTime="currentTime"
         :duration="duration"
         :playing="playing"
+        @toggle-playing-state="$emit('toggle-playing-state')"
+        @toggle-show-play-list="showPlayList = $event"
+        @page-top="$emit('page-top')"
+        @page-bottom="$emit('page-bottom')"
       />
     </transition>
   </footer>

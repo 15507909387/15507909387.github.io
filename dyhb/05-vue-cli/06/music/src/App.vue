@@ -48,6 +48,9 @@
       :duration="duration"
       :currentPlayList="currentPlayList"
       @change-current-song="changeCurrentSong"
+      @page-top="pageTop"
+      @page-bottom="pageBottom"
+      
     ></Play>
   </div>
 </template>
@@ -79,11 +82,11 @@ export default {
   },
   methods: {
     changeCurrentSong: function (song) {
-      // console.log(song);
+      console.log(song);
       this.currentSong = song;
     },
     changeCurrentPlayList: function (list) {
-      console.log(list);
+      // console.log(list);
       this.currentPlayList = list;
     },
     togglePlayingState: function () {
@@ -106,12 +109,44 @@ export default {
       // console.log(event.target.duration);
       this.duration = event.target.duration;
     },
+    pageTop:function(){
+      //findIndex() 方法返回传入一个测试条件（函数）符合条件的数组第一个元素位置。
+      //findIndex() 方法为数组中的每个元素都调用一次函数执行：
+      var index = this.currentPlayList.findIndex((item) => {
+        return item.id === this.currentSong.id;
+      });
+      index--;
+      index = index < 0 ? this.currentPlayList.length - 1 : index
+      console.log(index);
+      this.changeCurrentSong(this.currentPlayList[index]);
+      
+    },
+    pageBottom:function(){
+     
+       var index = this.currentPlayList.findIndex((item) => {
+        return item.id === this.currentSong.id;
+      });
+      index++;
+      index = index > this.currentPlayList.length - 1 ? 0 : index
+      console.log(index);
+      this.changeCurrentSong(this.currentPlayList[index]);
+    },
+   
   },
 };
 </script>
 
 
 <style lang="less">
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .animate__animated {
   animation-duration: 0.3s;
 }

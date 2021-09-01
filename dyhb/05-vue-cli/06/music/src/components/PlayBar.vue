@@ -100,14 +100,7 @@ export default {
 
 <style lang="less" scoped>
 
-@keyframes rotate {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
 .playbar {
   
     width: 100%;

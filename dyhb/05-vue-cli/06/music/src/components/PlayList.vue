@@ -3,7 +3,7 @@
     <div
       class="mask animate__animated animate__fadeIn"
       @click.stop="$emit('toggle-show-play-list', false)" 
-    ></div>R
+    ></div>
     <div class="swiper animate__animated animate__slideInUp">
       <div class="card">
         <ul class="list">
@@ -44,6 +44,7 @@ export default {
 
 <style lang="less" scoped>
 .play-list {
+  z-index: 1;
   width: 100%;
   height: 100%;
   // background: red;
