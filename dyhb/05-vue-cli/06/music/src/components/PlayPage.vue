@@ -31,11 +31,20 @@
           alt=""
         />
       </section>
+      <!-- duration 总时长  setp 步进-->
+      <section class="progress">
+        <input 
+        type="range" 
+        :max="duration" 
+        step="0.1" 
+        :value="currentTime"
+        />
+      </section>
       <section class="controls">
         <span @click="$emit('page-top')">上一首</span>
         <span @click="$emit('toggle-playing-state')">播放</span>
         <span @click="$emit('page-bottom')">下一首</span>
-        <span @click="$emit('toggle-show-play-list',true)">列表</span>
+        <span @click="$emit('toggle-show-play-list', true)">列表</span>
       </section>
     </section>
   </section>
@@ -81,10 +90,9 @@ export default {
   }
 
   .rotate {
-
     position: relative;
     padding-top: 25vw;
-    top:40px;
+    top: 40px;
     img.needle {
       height: 40vw;
       position: absolute;
@@ -100,6 +108,14 @@ export default {
         transform: rotate(-20deg);
       }
     }
+    .progress {
+        width: 100vw;
+        margin-top: 20vh;
+        // background: red;
+        input {
+          width: 100vw;
+        }
+      }
   }
 
   .record {
