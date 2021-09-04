@@ -1,17 +1,37 @@
 <template>
   <div class="search">
-    <input type="text" placeholder="搜索" v-model.trim="value" />
-    <section class="hots" v-if="!value">
+                                <!-- keyup 按键修饰符 enter 回车 -->
+    <input 
+      type="text" 
+      placeholder="搜索" 
+      v-model.trim="value" 
+      @keyup.enter="value && (searching = true)"/>
+    <section class="hots" v-if="!value && !searching" >
       <h5>热门搜索</h5>
       <ul class="">
         <li v-for="hot in hots" :key="hot.first">{{ hot.first }}</li>
       </ul>
     </section>
-    <section class="suggest" v-if="value">
+    <section class="suggest" v-if="value && !searching">
       <h5>搜索建议</h5>
-      <ul>
-        <li v-for="suggestss in suggests" :key="suggestss.feature">
+      <ul v-if="searching">
+        <li 
+          v-for="suggestss in suggests" 
+          :key="suggestss.feature"
+          @click="
+            value = suggestss.keyword;
+            searching = true;
+            "
+          >
           {{ suggestss.keyword }}
+        </li>
+      </ul>
+    </section>
+    <section class="suggest" v-if="searching">
+      <h5>搜索结果</h5>
+      <ul>
+        <li>
+          
         </li>
       </ul>
     </section>
@@ -25,6 +45,7 @@ export default {
       hots: [],
       value: "",
       suggests: [],
+      searching: false,
     };
   },
   created: function () {

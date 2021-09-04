@@ -37,7 +37,8 @@
         type="range" 
         :max="duration" 
         step="0.1" 
-        :value="currentTime"
+        v-model="value"
+        @value="currentTime"
         />
       </section>
       <section class="controls">
@@ -58,6 +59,12 @@ export default {
     duration: Number,
     currentTime: Number,
   },
+  data: function(){
+    return {
+      value: this.currentTime,
+    }
+    
+  }
 };
 </script>
 
