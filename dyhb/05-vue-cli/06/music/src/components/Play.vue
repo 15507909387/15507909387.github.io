@@ -42,6 +42,7 @@
         @toggle-show-play-list="showPlayList = $event"
         @page-top="$emit('page-top')"
         @page-bottom="$emit('page-bottom')"
+        @current-time-change="$emit('current-time-change',$event)"
       />
     </transition>
   </footer>

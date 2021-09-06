@@ -1,5 +1,7 @@
+
 <template>
   <div id="app">
+  <img width="100%" src="./QQ图片20210906172113.png" alt="">
     <ul id="nav" v-if="$route.meta.showNavBar">
       <li>
         <router-link to="/">推荐音乐</router-link>
@@ -50,6 +52,7 @@
       @change-current-song="changeCurrentSong"
       @page-top="pageTop"
       @page-bottom="pageBottom"
+      @current-time-change="$refs.audio.currentTime = $event"
       
     ></Play>
   </div>
@@ -165,7 +168,7 @@ export default {
 audio {
   height: 40px;
   position: fixed;
-  bottom: 50px;
+  // bottom: 50px;
   left: 10px;
 }
 
