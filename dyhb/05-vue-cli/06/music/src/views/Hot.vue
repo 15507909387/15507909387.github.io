@@ -2,7 +2,9 @@
 <div>
   <img width="100%" src="../QQ图片20210906172941.png" alt="">
     <ul >
-      <li class="hot" v-for="(item, index) in hotsong" :key="item.id">
+      <li class="hot" v-for="(item, index) in hotsong" :key="item.id"
+         @click="$emit(`change-current-song`, item)"
+      >
        
         <div class="num"> {{ (index + 1).toString().padStart(2, "0") }}</div>
         <div class="left">
@@ -18,7 +20,7 @@
         <div class="icon">
           <div
             class="play"
-           
+            :class="{current: currentSongId === item.id, playing:playing }"
           >
             <i></i>
             <i></i>
@@ -32,6 +34,13 @@
 
 <script>
 export default {
+  props: {
+   
+    currentSongId: {
+      type: Number,
+    },
+    playing: Boolean,
+  },
   data: function () {
     return {
       //新建空数组
@@ -44,9 +53,9 @@ export default {
     this.axios
       .get("http://apis.netstart.cn/music/playlist/detail?id=3778678")
       .then((res) => {
-        console.log(res);
+        // console.log(res);
         this.hotsong = res.data.playlist.tracks;
-        console.log(this.hotsong);
+        // console.log(this.hotsong);
       });
   },
 };
@@ -61,6 +70,7 @@ export default {
   margin-left: 12px;
   .num {
     width: 22px;
+    padding-right: 30px;
     // background: red;
   }
   &.lt3 {
@@ -140,38 +150,45 @@ export default {
       background-size: 166px auto;
       background-position: -24px 0;
     }
-    // .current {
-    //   width: 15px;
-    //   height: 15px;
-    //   background: red;
-    //   background: none;
+    .current {
+      width: 15px;
+      height: 15px;
+      background: red;
+      background: none;
 
-    //   display:flex;
-    //   justify-content: space-around;
-    //   i {
-    //     width: 3px;
-    //     height: 100%;
-    //     background: #d43c33;
-    //     transform-origin: bottom;
-    //     animation: playing 0.9s linear 0s infinite alternate;
-    //     //暂停
-    //     animation-play-state: paused;
-    //     &:nth-child(1) {
-    //       animation-delay: -0.6s;
-    //     }
-    //     &:nth-child(2) {
-    //       animation-delay: -0.3s;
-    //     }     
-    //   }
-      //.current 在 playing 状态时的样式
-      // &.playing {
-      //   i {
+      display:flex;
+      justify-content: space-around;
+      i {
+        width: 3px;
+        height: 100%;
+        background: #d43c33;
+        transform-origin: bottom;
+        animation: playing 0.9s linear 0s infinite alternate;
+        //暂停
+        animation-play-state: paused;
+        &:nth-child(1) {
+          animation-delay: -0.6s;
+        }
+        &:nth-child(2) {
+          animation-delay: -0.3s;
+        }     
+      }
+      // .current 在 playing 状态时的样式
+      &.playing {
+        i {
           
-      //     animation-play-state: running;
-      //   }
-      // }
-    // }
+          animation-play-state: running;
+        }
+      }
+    }
   }
- 
 }
+@keyframes playing {
+    from {
+      transform: scaleY(0.2);
+    }
+    to {
+      transform: scaleY(1);
+    }
+  }
 </style>

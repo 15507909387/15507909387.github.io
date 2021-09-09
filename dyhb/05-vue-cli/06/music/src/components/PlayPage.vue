@@ -65,6 +65,7 @@
       ></span>
     </section>
     <section class="controls">
+      <span>模式</span>
       <span @click="$emit('page-top')">上一首</span>
       <span @click="$emit('toggle-playing-state')">播放</span>
       <span @click="$emit('page-bottom')">下一首</span>
@@ -105,15 +106,15 @@ export default {
     },
 
     currentLyricIndex: function () {
-      // var lis = this.$refs.lyricContent
-      //   ? this.$refs.lyricContent.querySelectorAll("li")
-      //   : null;
-      // // console.log(index, lis);
-      // if (lis != null) {
-      //   this.lisH = [...lis].map((item) => item.offsetHeight);
-      // }
-      // console.log(this.lisH);
-      console.log("aaa");
+      var lis = this.$refs.lyricContent
+        ? this.$refs.lyricContent.querySelectorAll("li")
+        : null;
+      // console.log(index, lis);
+      if (lis != null) {
+        this.lisH = [...lis].map((item) => item.offsetHeight);
+      }
+      console.log(this.lisH);
+      // console.log("aaa");
     },
 
     parsedLyric: function () {
@@ -207,15 +208,27 @@ export default {
   left: 0;
   top: 0;
 
+  overflow: hidden;
+  &::before {
+    content: "";
+    display: block;
+    .pos-ab();
+    z-index: -2;
+    background-color: #333;
+  }
+
+
   .mask {
     background-repeat: no-repeat;
     background-size: cover;
     background-position: center;
     // 模糊
-    filter: blur(30px) brightness(0.5);
+    filter: blur(30px) brightness(0.8);
     z-index: -1;
     //缩放
     transform: scale(1.2);
+    transition: all 0.8s;
+
     .pos-ab();
   }
 
@@ -243,7 +256,7 @@ export default {
 
   .lyric {
     height: 70vh;
-    background: rgb(116, 115, 115);
+    // background: rgb(116, 115, 115);
     text-align: center;
     overflow: hidden;
     position: relative;
@@ -251,7 +264,8 @@ export default {
 
     ul {
       transition: all 0.3s;
-      background: blue;
+      color: rgb(207, 207, 203);
+      // background: blue;
       // position:absolute;
       bottom: 10vh;
 
@@ -260,7 +274,7 @@ export default {
 
         span {
           &.active {
-            color: red;
+            color: rgb(135, 250, 215);
           }
         }
       }
@@ -322,9 +336,11 @@ export default {
   }
 
   .controls {
+
     width: 100%;
     // background: red;
     padding: 10px;
+    padding-bottom: 20px;
     display: flex;
     justify-content: space-around;
     color: white;
